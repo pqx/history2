@@ -14,9 +14,14 @@ function render(file) {
   req.send();
 }
 
+function notFound() {
+  target.innerHTML = 'not found';
+}
+
 function route(path) {
   if(path === '/hello') render('hello.md');
   else if(path === '/world') render('world.md');
+  else notFound();
 }
 
 var path = history2.init({
