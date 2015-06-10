@@ -9,7 +9,7 @@ var pushStateSupport = window.history && window.history.pushState;
 
 function init(options) {
   var mode = this.mode = options.mode || (pushStateSupport ? 'pushstate' : 'hashbang');
-  var basePath = options.basePath || '/';
+  var basePath = this.basePath = options.basePath || '/';
 
   var path = null;
   var pathname = window.location.pathname;

@@ -3,7 +3,7 @@ var target = document.getElementById('target');
 
 function render(file) {
   var req = new XMLHttpRequest();
-  req.open('GET', '/example/'+file, true);
+  req.open('GET', file, true);
 
   req.onload = function() {
     if(req.status >= 200 && req.status < 400) {
@@ -20,7 +20,7 @@ function route(path) {
 }
 
 var path = history2.init({
-  mode: 'hashbang',
+  // mode: 'hashbang',
   basePath: '/example'
 });
 
