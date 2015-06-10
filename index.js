@@ -30,7 +30,7 @@ function init(options) {
   } else {
     path = pathname + window.location.search;
     if(pathname !== '/' && mode === 'hashbang') {
-      return window.location.replace('/#!'+pathname.substring(1));
+      return window.location.replace('/#!/'+pathname.substring(1));
     }
   }
 
@@ -71,11 +71,13 @@ function start() {
       self.pub('change', location.pathname+location.search);
     };
   } else if(this.mode === 'hashbang') {
-    // todo: ie attach event
-    window.onhashchange = function(e) {
+    function onChange(e) {
       if(_change) self.pub('change', location.hash.substr(2));
       else _change = true; // disable once
     };
+
+    if(window.addEventListener) window.addEventListener('hashchange', onChange, false);
+    else if(window.attachEvent) window.attachEvent('onhashchange', onChange);
   }
 }
 

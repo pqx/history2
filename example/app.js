@@ -25,7 +25,7 @@ function route(path) {
 }
 
 var path = history2.init({
-  // mode: 'hashbang',
+  mode: 'hashbang',
   basePath: '/example'
 });
 

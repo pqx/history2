@@ -12,9 +12,10 @@
   },
   "keywords": [
     "history",
-    "browser"
+    "browser",
+    "pushState"
   ],
-  "author": "wang zuo <wzuoadjusted@gmail.com> (https://twitter.com/wang_zuo)",
+  "author": "Wang Zuo",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/pqx/history2/issues"
