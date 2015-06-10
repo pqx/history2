@@ -1,0 +1,26 @@
+{
+  "name": "history2",
+  "version": "1.0.0",
+  "description": "History management in browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pqx/history2.git"
+  },
+  "keywords": [
+    "history",
+    "browser"
+  ],
+  "author": "wang zuo <wzuoadjusted@gmail.com> (https://twitter.com/wang_zuo)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pqx/history2/issues"
+  },
+  "homepage": "https://github.com/pqx/history2#readme",
+  "dependencies": {
+    "object-assign": "^3.0.0"
+  }
+}
