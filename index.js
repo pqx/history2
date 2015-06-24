@@ -17,17 +17,16 @@ function init(options) {
   var pathname = location.pathname;
   var originalUrl = pathname + location.search;
   var hash = location.hash;
-  var start = hash.startsWith('#!');
+  var start = hash && hash.startsWith('#!');
 
-  if(start) {
+  if(mode === 'pushstate') {
+    if(start) return location.replace(hash.substring(2));
+    url = originalUrl;
+  }
+
+  if(mode === 'hashbang') {
+    if(!start) return location.replace('/#!' + originalUrl);
     url = hash.substring(2);
-    if(mode === 'pushstate') return location.replace(path);
-  } else if(hash) {
-    var _url = hash.substring(1).replace(/-/g, '/'); // todo: convert url
-    if(mode === 'pushstate') url = '/' + _url;
-    else if(mode === 'hashbang') return location.replace('/#!' + _url);
-  } else if(pathname !== '/' && mode === 'hashbang') {
-    return location.replace('/#!/'+pathname.substring(1)+location.search);
   }
 
   this.start();
