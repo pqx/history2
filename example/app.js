@@ -40,9 +40,8 @@ document.body.addEventListener('click', function(e) {
   }
 });
 
-history2.sub('change', function(path) {
+history2.on('change', function(path) {
   route(path);
 });
 
-history2.start();
 window.history2 = history2;
