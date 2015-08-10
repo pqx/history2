@@ -1,16 +1,20 @@
 var assign = require('object-assign');
 require('./lib/starts-with');
 var PubSub = require('./lib/pub-sub');
-var location = window.location;
-var history = window.history;
+
+var global = typeof window === 'undefined' ? {} : window;
+
+// todo: avoid window object
+var location = global.location || {hash: ''};
+var history = global.history || {};
+global._HISTORY_POPPED = false;
 
 var _change = true; // hashchange event handler lock
-window._HISTORY_POPPED = false;
 var initialURL = location.href;
 var pushStateSupport = history && history.pushState;
 
 function init(options) {
-  var mode = this.mode = options.mode || (pushStateSupport ? 'pushstate' : 'hashbang');
+  var mode = options.mode || (pushStateSupport ? 'pushstate' : 'hashbang');
   var basePath = this.basePath = options.basePath || '/';
 
   var url = null;
@@ -25,16 +29,18 @@ function init(options) {
   }
 
   if(mode === 'hashbang') {
-    if(!start) return location.replace('/#!' + originalUrl);
-    url = hash.substring(2);
+    // if(!start) return location.replace('/#!' + originalUrl);
+    url = hash.substring(2) || '/';
   }
 
+  this.mode = mode;
   this.start();
+
   return url;
 }
 
 function change(url) {
-  window._HISTORY_POPPED = true;
+  global._HISTORY_POPPED = true;
 
   if(this.mode === 'pushstate') {
     history.pushState({url: url}, url, url);
@@ -58,10 +64,10 @@ function start() {
   var self = this;
 
   if(this.mode === 'pushstate') {
-    window.onpopstate = function(event) {
-      var initialPop = location.href === initialURL && !window._HISTORY_POPPED;
+    global.onpopstate = function(event) {
+      var initialPop = location.href === initialURL && !global._HISTORY_POPPED;
 
-      window._HISTORY_POPPED = true;
+      global._HISTORY_POPPED = true;
       if(initialPop) return;
 
       self.pub('change', location.pathname+location.search);
@@ -72,8 +78,8 @@ function start() {
       else _change = true; // disable once
     };
 
-    if(window.addEventListener) window.addEventListener('hashchange', onChange, false);
-    else if(window.attachEvent) window.attachEvent('onhashchange', onChange);
+    if(global.addEventListener) global.addEventListener('hashchange', onChange, false);
+    else if(global.attachEvent) global.attachEvent('onhashchange', onChange);
   }
 }
 
