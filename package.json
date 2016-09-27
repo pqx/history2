@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/pqx/history2#readme",
   "dependencies": {
-    "object-assign": "^3.0.0"
+    "object-assign": "^4.1.0"
   }
 }
